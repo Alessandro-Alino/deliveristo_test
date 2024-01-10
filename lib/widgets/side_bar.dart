@@ -17,81 +17,93 @@ class SideBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        DrawerHeader(
-          child: Column(
+        Expanded(
+          child: ListView(
             children: [
-              //Avatar
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const CircleAvatar(
-                    maxRadius: 40.0,
-                  ),
-                  IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.light_mode))
-                ],
+              DrawerHeader(
+                child: Column(
+                  children: [
+                    //Avatar
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const CircleAvatar(
+                          maxRadius: 40.0,
+                        ),
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.light_mode))
+                      ],
+                    ),
+                    //UserName
+                    const ListTile(title: Text('User'))
+                  ],
+                ),
               ),
-              //UserName
-              const ListTile(title: Text('User'))
+              //List Drawer
+              ListTile(
+                leading: const Icon(Icons.home),
+                title: const Text('Home'),
+                onTap: () {
+                  pageController.animateToPage(0,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeIn);
+                  MediaQuery.of(context).size.width >= 600.0
+                      ? null
+                      : Navigator.pop(context);
+                },
+              ),
+              Builder(
+                builder: (context) {
+                  final stateRandomBreed =
+                      context.watch<RandomImageByBreedBloc>();
+                  final stateImagesList =
+                      context.watch<ImagesListByBreedBloc>();
+                  final stateSubBreed =
+                      context.watch<RandomImageBySubBreedBloc>();
+                  final stateImageListSub =
+                      context.watch<ImagesListBySubBreedBloc>();
+                  final stateSelectedBreed = context.watch<SelectedBreed>();
+                  final stateSelectedBreedForImageList =
+                      context.watch<SelectedBreedForImageList>();
+                  final stateBreedforSubBreed =
+                      context.watch<SelectedBreedForSubBreed>();
+                  final stateSubBreedforSubBreed =
+                      context.watch<SelectedSubBreedForSubBreed>();
+
+                  final selectedBreedForListSubBreed =
+                      context.watch<SelectedBreedForListSubBreed>();
+                  final selectedSubBreedForListSubBreed =
+                      context.watch<SelectedSubBreedForListSubBreed>();
+
+                  return ListTile(
+                    leading: const Icon(Icons.replay_outlined),
+                    title: const Text('Reset'),
+                    onTap: () {
+                      MediaQuery.of(context).size.width >= 600.0
+                          ? null
+                          : Navigator.pop(context);
+                      //Restore the setting
+                      stateRandomBreed.reset();
+                      stateImagesList.reset();
+                      stateSubBreed.reset();
+                      stateImageListSub.reset();
+                      stateSelectedBreed.selectBreedRandomImage(null);
+                      stateSelectedBreedForImageList
+                          .selectBreedForImageList(null);
+                      stateBreedforSubBreed.selectBreedForSubBreed(null);
+                      stateSubBreedforSubBreed.selectSubBreedForSubBreed(null);
+                      selectedBreedForListSubBreed
+                          .selectBreedForListSubBreed(null);
+                      selectedSubBreedForListSubBreed
+                          .selectSubBreedForListSubBreed(null);
+                    },
+                  );
+                },
+              ),
             ],
           ),
         ),
-        //List Drawer
-        ListTile(
-          leading: const Icon(Icons.home),
-          title: const Text('Home'),
-          onTap: () {
-            pageController.animateToPage(0,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeIn);
-            MediaQuery.of(context).size.width >= 600.0
-                ? null
-                : Navigator.pop(context);
-          },
-        ),
-        Builder(
-          builder: (context) {
-            final stateRandomBreed = context.watch<RandomImageByBreedBloc>();
-            final stateImagesList = context.watch<ImagesListByBreedBloc>();
-            final stateSubBreed = context.watch<RandomImageBySubBreedBloc>();
-            final stateImageListSub = context.watch<ImagesListBySubBreedBloc>();
-            final stateSelectedBreed = context.watch<SelectedBreed>();
-            final stateSelectedBreedForImageList =
-                context.watch<SelectedBreedForImageList>();
-            final stateBreedforSubBreed =
-                context.watch<SelectedBreedForSubBreed>();
-            final stateSubBreedforSubBreed =
-                context.watch<SelectedSubBreedForSubBreed>();
-
-            final selectedBreedForListSubBreed =
-                context.watch<SelectedBreedForListSubBreed>();
-            final selectedSubBreedForListSubBreed =
-                context.watch<SelectedSubBreedForListSubBreed>();
-
-            return ListTile(
-              leading: const Icon(Icons.replay_outlined),
-              title: const Text('Reset'),
-              onTap: () {
-                MediaQuery.of(context).size.width >= 600.0
-                    ? null
-                    : Navigator.pop(context);
-                //Restore the setting
-                stateRandomBreed.reset();
-                stateImagesList.reset();
-                stateSubBreed.reset();
-                stateImageListSub.reset();
-                stateSelectedBreed.selectBreedRandomImage(null);
-                stateSelectedBreedForImageList.selectBreedForImageList(null);
-                stateBreedforSubBreed.selectBreedForSubBreed(null);
-                stateSubBreedforSubBreed.selectSubBreedForSubBreed(null);
-                selectedBreedForListSubBreed.selectBreedForListSubBreed(null);
-                selectedSubBreedForListSubBreed
-                    .selectSubBreedForListSubBreed(null);
-              },
-            );
-          },
-        ),
-        const Spacer(),
         ListTile(
           leading: const Icon(Icons.info),
           title: const Text('About'),
