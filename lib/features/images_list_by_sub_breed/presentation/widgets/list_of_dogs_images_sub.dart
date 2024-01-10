@@ -4,7 +4,6 @@ import 'package:deliveristo_test/features/images_list_by_sub_breed/presentation/
 import 'package:deliveristo_test/screens/image_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
 
 class ListOfSubDogsImages extends StatelessWidget {
   const ListOfSubDogsImages({super.key});
@@ -20,10 +19,10 @@ class ListOfSubDogsImages extends StatelessWidget {
                   child: const PlaceHolderListOfDogs()));
         } else if (state is ImagesListBySubBreedLoadingState) {
           return Center(
-            child: Lottie.asset(
-              'assets/lottie/placeholder_loading.json',
-              width: 120.0,
-              height: 120.0,
+            child: Image.asset(
+              'assets/images/placeholder_dog.png',
+              width: 600.0,
+              height: 400.0,
             ),
           );
         } else if (state is ImagesListBySubBreedLoadedState) {
@@ -57,10 +56,11 @@ class ListOfSubDogsImages extends StatelessWidget {
                             imageUrl: state.listOfSubBreedModel.message[index],
                             placeholder: (context, url) {
                               return Center(
-                                child: Lottie.asset(
-                                    'assets/lottie/placeholder_loading.json',
-                                    width: 120.0,
-                                    height: 120.0),
+                                child: Image.asset(
+                                  'assets/images/placeholder_dog.png',
+                                  width: 100.0,
+                                  height: 100.0,
+                                ),
                               );
                             },
                             errorWidget: (context, url, error) =>

@@ -4,30 +4,9 @@ import 'package:deliveristo_test/features/random_image_by_breed/presentation/blo
 import 'package:deliveristo_test/screens/image_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
 
-class DogsImages extends StatefulWidget {
+class DogsImages extends StatelessWidget {
   const DogsImages({super.key});
-
-  @override
-  State<DogsImages> createState() => _DogsImagesState();
-}
-
-class _DogsImagesState extends State<DogsImages> with TickerProviderStateMixin {
-  late AnimationController _animationController;
-
-  @override
-  void initState() {
-    _animationController = AnimationController(vsync: this);
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +15,8 @@ class _DogsImagesState extends State<DogsImages> with TickerProviderStateMixin {
         if (state is RandomImageByBreedInitialState ||
             context.read<SelectedBreed>().state == null) {
           return Center(
-            child: Lottie.asset(
-              'assets/lottie/dogs_photo.json',
-              controller: _animationController,
-              onLoaded: (composition) {
-                _animationController
-                  ..duration = composition.duration
-                  ..forward();
-              },
+            child: Image.asset(
+              'assets/images/dog_photo.png',
               width: 600.0,
               height: 400.0,
             ),
@@ -56,16 +29,10 @@ class _DogsImagesState extends State<DogsImages> with TickerProviderStateMixin {
             child: Card(
               elevation: 10.0,
               child: Center(
-                child: Lottie.asset(
-                  'assets/lottie/placeholder_loading.json',
-                  controller: _animationController,
-                  onLoaded: (composition) {
-                    _animationController
-                      ..duration = composition.duration
-                      ..forward();
-                  },
-                  width: 120.0,
-                  height: 120.0,
+                child: Image.asset(
+                  'assets/images/placeholder_dog.png',
+                  width: 100.0,
+                  height: 100.0,
                 ),
               ),
             ),
@@ -96,16 +63,10 @@ class _DogsImagesState extends State<DogsImages> with TickerProviderStateMixin {
                       imageUrl: state.singleRandomImageByBreed.message,
                       placeholder: (context, url) {
                         return Center(
-                          child: Lottie.asset(
-                            'assets/lottie/placeholder_loading.json',
-                            controller: _animationController,
-                            onLoaded: (composition) {
-                              _animationController
-                                ..duration = composition.duration
-                                ..forward();
-                            },
-                            width: 120.0,
-                            height: 120.0,
+                          child: Image.asset(
+                            'assets/images/placeholder_dog.png',
+                            width: 100.0,
+                            height: 100.0,
                           ),
                         );
                       },

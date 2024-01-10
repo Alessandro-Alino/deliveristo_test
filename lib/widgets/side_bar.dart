@@ -30,9 +30,11 @@ class SideBar extends StatelessWidget {
                         const CircleAvatar(
                           maxRadius: 40.0,
                         ),
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.light_mode))
+                        Flexible(
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.light_mode)),
+                        )
                       ],
                     ),
                     //UserName
